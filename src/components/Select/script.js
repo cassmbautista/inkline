@@ -115,5 +115,15 @@ export default {
         if (this.value) {
             this.setLabelModel(this.value);
         }
+
+        // Setup an observer to watch any changes to the slots
+        this.observer = new MutationObserver(function() {
+            this.initElements();
+        }.bind(this));
+
+        this.observer.observe(
+            this.$refs['select-dropdown-menu'].$el,
+            { attributes: false, childList: false, characterData: true, subtree: true }
+        );
     }
 };
