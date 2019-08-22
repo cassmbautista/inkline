@@ -4,6 +4,11 @@ module.exports = {
             entry: "src/index.js",
             template: "public/index.html",
             filename: "index.html"
+        },
+        development: {
+            entry: "dev/main.js",
+            template: "dev/index.html",
+            filename: "development.html"
         }
     },
     filenameHashing: false,
