@@ -38,7 +38,7 @@ module.exports = {
         //         analyzerMode: 'static'
         //     }));
     },
-    lintOnSave: true,
+    lintOnSave: false,
     pluginOptions: {
         lintStyleOnBuild: true,
         stylelint: {

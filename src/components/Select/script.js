@@ -115,5 +115,16 @@ export default {
         if (this.value) {
             this.setLabelModel(this.value);
         }
+
+        // Create the observer (and what to do on changes...)
+        this.observer = new MutationObserver(function() {
+            this.initElements();
+        }.bind(this));
+
+        // Setup the observer
+        this.observer.observe(
+            this.$refs['select-dropdown'].$el,
+            { attributes: false, childList: false, characterData: true, subtree: true }
+        );
     }
 };
