@@ -78,8 +78,10 @@ export default {
         }
     },
     methods: {
-        setLabelModel({value, label}) {
-            this.labelModel = label || value;
+        setLabelModel(value){
+            let option = this.options.find(o => o.value === value);
+
+            this.labelModel = option ? option.label || option.value : value;
         },
         focusInputRef() {
             this.isMobile ? this.$refs.select.focus() : this.$refs.input.focusInputRef();
@@ -93,7 +95,7 @@ export default {
             }
         },
         initElements() {
-            this.options = querySelectorAll(this.$children, 'ISelectOption');
+            this.options = querySelectorAll(this.$children[0].$children[1].$children, 'ISelectOption');
         }
     },
     created() {
@@ -103,27 +105,24 @@ export default {
         }));
 
         this.$on('option-click', (option) => {
-            this.model = option;
+            this.model = option.value;
         });
     },
     mounted() {
         this.initElements();
         this.$on('init', this.initElements);
 
-        if (this.value) {
-            this.setLabelModel({
-                value: this.value
-            });
+        if(this.value) {
+            this.setLabelModel(this.value);
         }
 
         // Setup an observer to watch any changes to the slots
         this.observer = new MutationObserver(function() {
             this.initElements();
         }.bind(this));
-
         this.observer.observe(
             this.$refs['select-dropdown-menu'].$el,
-            { attributes: false, childList: false, characterData: true, subtree: true }
+            { attributes: false, childList: true, characterData: true, subtree: true }
         );
     }
 };
