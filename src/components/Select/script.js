@@ -74,15 +74,12 @@ export default {
     },
     watch: {
         model(value) {
-            this.initElements(); // Reinitialize options list to handle dynamic select options
             this.setLabelModel(value);
         }
     },
     methods: {
-        setLabelModel(value) {
-            const option = this.options.find((o) => o.value === value);
-
-            this.labelModel = option ? option.label || option.value : value;
+        setLabelModel({value, label}) {
+            this.labelModel = label || value;
         },
         focusInputRef() {
             this.isMobile ? this.$refs.select.focus() : this.$refs.input.focusInputRef();
@@ -106,7 +103,7 @@ export default {
         }));
 
         this.$on('option-click', (option) => {
-            this.model = option.value;
+            this.model = option;
         });
     },
     mounted() {
@@ -114,7 +111,9 @@ export default {
         this.$on('init', this.initElements);
 
         if (this.value) {
-            this.setLabelModel(this.value);
+            this.setLabelModel({
+                value: this.value
+            });
         }
 
         // Setup an observer to watch any changes to the slots
