@@ -78,8 +78,8 @@ export default {
         }
     },
     methods: {
-        setLabelModel(value){
-            let option = this.options.find(o => o.value === value);
+        setLabelModel(value) {
+            const option = this.options.find((o) => o.value === value);
 
             this.labelModel = option ? option.label || option.value : value;
         },
@@ -112,7 +112,7 @@ export default {
         this.initElements();
         this.$on('init', this.initElements);
 
-        if(this.value) {
+        if (this.value) {
             this.setLabelModel(this.value);
         }
 
