@@ -95,7 +95,7 @@ export default {
             }
         },
         initElements() {
-            this.options = querySelectorAll(this.$children[0].$children[1].$children, 'ISelectOption');
+            this.options = querySelectorAll(this.$children, 'ISelectOption');
         }
     },
     created() {

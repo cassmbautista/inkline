@@ -1,4 +1,14 @@
-import { mount, shallowMount } from '@vue/test-utils';
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils';
+global.MutationObserver = class {
+    constructor(callback) {
+        this.callback = callback;
+    }
+    runCallback() {
+        this.callback();
+    }
+    disconnect() {}
+    observe = jest.fn()
+};
 import Select from '@inkline/inkline/src/components/Select';
 
 describe('Components', () => {
@@ -214,14 +224,6 @@ describe('Components', () => {
 
         describe('watch', () => {
             describe('model()', () => {
-                it('should call initElements', () => {
-                    const spy = jest.spyOn(wrapper.vm, 'initElements');
-
-                    wrapper.setProps({ value: 'label' });
-
-                    expect(spy).toHaveBeenCalled();
-                });
-
                 it('should call setLabelModel with changed value', () => {
                     const spy = jest.spyOn(wrapper.vm, 'setLabelModel');
 
